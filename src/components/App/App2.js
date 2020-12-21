@@ -15,8 +15,7 @@ class App extends React.Component {
 
   handleLogin = cb => {
     //despachamos la acción
-    
-    this.setState({ isLogged: true }, cb);
+    //this.setState({ isLogged: true }, cb);
   };
 
   handleLogout = () => {

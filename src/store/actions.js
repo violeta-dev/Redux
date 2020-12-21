@@ -10,22 +10,21 @@ import {
   } from './types';
   
 
-export const authLogin = (isLogged, token) => {
+export const authLogin = (isLogged,token) => {
   return {
     type: AUTH_LOGIN,
     payload: {
       isLogged,
       token,
+      
     },
   };
 };
 
-export const authLogout = (isLogged) => {
+export const authLogout = () => {
   return {
     type: AUTH_LOGOUT,
-    payload: {
-      isLogged,
-    },
+    
   };
 };
 
