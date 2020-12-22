@@ -8,40 +8,35 @@ import { AuthContextProvider } from '../../contexts/auth';
 import NotFoundPage from './NotFoundPage';
 import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
-
-function App ({ isLogged, authLogin, authLogout }) {
-  /*state = {
+//function App({ isLogged, authLogin, authLogout })
+class App extends React.Component {
+  state = {
     isLogged: this.props.isInitiallyLogged,
-  };*/
+  };
+
   
- /* const handleLogin = cb =>
-    new Promise(resolve => {
-      authLogin(isLogged);
-      this.setState({ isLogged:  true }, cb);
-      resolve(cb);
-    });*/
 
-
-  const handleLogin = (isLogged) => {
+  handleLogin = cb => {
     //despachamos la acción
-    authLogin(isLogged);
-  // this.setState({ isLogged:  true }, cb);
-  }
+    //authLogin({isLogged:true});
+    console.log(this.props)
+    this.setState({ isLogged: true }, cb);
+  };
 
- const handleLogout = (isLogged) => {
-    authLogout(isLogged)  
+  handleLogout = () => {
+    //authLogout({ isLogged: false })  
     this.setState({ isLogged: false });
   };
 
- 
-    //const { isLogged } = this.state;
+  render() {
+    const { isLogged } = this.state;
    
     return (
       <AuthContextProvider
         value={{
           isLogged,
-          onLogin: handleLogin,
-          onLogout: handleLogout,
+          onLogin: this.handleLogin,
+          onLogout: this.handleLogout,
         }}
       >
         <Switch>
@@ -50,7 +45,7 @@ function App ({ isLogged, authLogin, authLogout }) {
           </Route>
           <Route path="/login" exact>
             {routerProps => (
-              <LoginPage onLogin={handleLogin} {...routerProps} />
+              <LoginPage onLogin={this.handleLogin} {...routerProps} />
             )}
           </Route>
           <PrivateRoute path="/adverts" exact>
@@ -68,15 +63,11 @@ function App ({ isLogged, authLogin, authLogout }) {
       </AuthContextProvider>
     );
   }
-
+}
 
 App.propTypes = {
   isInitiallyLogged: T.bool,
-  authLogin: T.func,
-  authLogout:T.func,
-
 };
-
 
 // Redux connection
 const mapStateToProps = state => {

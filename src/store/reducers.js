@@ -1,31 +1,39 @@
 import * as types from './types';
 
-export const initialState = {
+const initialState = {
   auth: null,
   adverts: null,
-}
-console.log(initialState)
+};
 
-const reducer = (state = initialState, action) => {
+
+export const auth = (state = initialState.auth, action) => {
   switch (action.type) {
     case types.AUTH_LOGIN:
       // login
-      //Generamos el nuevo estado de auth
-      console.log(action.payload)
-      return { ...state, auth: action.payload.isLogged };
+      return action.payload.isLogged;
     case types.AUTH_LOGOUT:
       // logout
-      return { ...state, auth: null };
-    case types.ADVERTS_LOADED:
-        return { ...state, adverts: action.payload.adverts };
-    case types.ADVERTS_CREATED:
-        if (!state.adverts) {
-          return { ...state, adverts: [action.payload.advert] };
-        }
-        return { ...state, adverts: state.adverts.concat(action.payload.advert) };
+      return action.payload.isLogged;
     default:
       return state;
   }
 };
 
-export default reducer;
+export const adverts = (state = initialState.adverts, action) => {
+  switch (action.type) {
+    case types.ADVERTS_LOADED:
+      return action.payload.adverts;
+    case types.ADVERT_DELETED:
+      return action.payload.advert;
+    case types.ADVERTS_CREATED:
+      if (!state) {
+        return [action.payload.advert];
+      }
+      return [...state, action.payload.advert];
+    
+    default:
+      return state;
+  }
+};
+
+

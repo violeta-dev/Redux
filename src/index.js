@@ -9,8 +9,8 @@ import App, { Root } from './components/App';
 
 import  { configureStore } from './store'
 
-import {authLogin} from'./store/actions'
-import { initialState } from './store/reducers';
+
+
 
 // Read token from storage
 const { token } = storage.get('auth') || { token: null };
@@ -20,7 +20,7 @@ configureClient(token);
 console.log(token)
 
 //Configuramos el store nada más arrancar la aplicación
-const store = configureStore({ ...initialState, auth: token });
+const store = configureStore({auth: token});
 console.log (store)
 
 console.log(store.getState());
@@ -29,12 +29,16 @@ console.log(store.getState());
 console.log(store.getState());
 
 
-ReactDOM.render(
-  <Root>
-    <App isInitiallyLogged={!!token} dispatch={store.dispatch} isLogged={store.getState().auth}/>
-  </Root>,
-  document.getElementById('root')
-);
+const render = () => {
+  ReactDOM.render(
+    <Root store={store}>
+      <App />
+    </Root>,
+    document.getElementById('root')
+  );
+};
+
+render();
 
 
 
