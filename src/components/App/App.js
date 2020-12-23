@@ -13,20 +13,20 @@ function App ({ isLogged, authLogin, authLogout }) {
   /*state = {
     isLogged: this.props.isInitiallyLogged,
   };*/
-  
- /* const handleLogin = cb =>
-    new Promise(resolve => {
-      authLogin(isLogged);
-      this.setState({ isLogged:  true }, cb);
-      resolve(cb);
-    });*/
 
+  const handleLogin = cb => {
+    authLogin( isLogged);
+    return cb;
+  };
 
-  const handleLogin = (isLogged) => {
+ /* const handleLogin = cb => {
     //despachamos la acción
+    console.log(isLogged)
     authLogin(isLogged);
-  // this.setState({ isLogged:  true }, cb);
-  }
+    return cb;
+
+    //this.setState({ isLogged:  true }, cb);
+  }*/
 
  const handleLogout = (isLogged) => {
     authLogout(isLogged)  

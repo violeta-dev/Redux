@@ -14,16 +14,20 @@ class LoginPage extends React.Component {
 
   handleSubmit = credentials => {
     const { onLogin, location, history } = this.props;
+    console.log(this.props)
     this.resetError();
     login(credentials)
       .then(() => {
         onLogin(() => {
           // Navigate to previously required route
-          const { from } = location.state || { from: { pathname: '/' } };
+         const { from } = location.state || { from: { pathname: '/' } };
+         
+          console.log(from)
           history.replace(from);
         });
       })
       .catch(error => {
+        console.log(error)
         this.setState({ error });
       });
   };
