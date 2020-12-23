@@ -12,45 +12,22 @@ class LoginPage extends React.Component {
     error: null,
   };
 
-  /*handleSubmit = credentials => {
-    const { onLogin, location, history } = this.props;
+  handleSubmit = async (credentials) => {
+    const { onLogin,location, history } = this.props;
     console.log(this.props)
     this.resetError();
-    login(credentials)
-      .then(() => {
-        onLogin(() => {
-          // Navigate to previously required route
-         const { from } = location.state || { from: { pathname: '/' } };
-         
-          console.log(from)
-          history.replace(from);
-        });
-      })
-      .catch(error => {
-        console.log(error)
-        this.setState({ error });
-      });
-  };*/
-  
-  handleSubmit = credentials => {
-    const { onLogin, location, history } = this.props;
-    console.log(this.props)
-    this.resetError();
-    login(credentials)
-      .then(() => {
-        onLogin(() => {
-          // Navigate to previously required route
-         const { from } = location.state || { from: { pathname: '/' } };
-         
-          console.log(from)
-          history.replace(from);
-        });
-      })
-      .catch(error => {
-        console.log(error)
-        this.setState({ error });
-      });
+    try {
+      const isLogged = await login(credentials)
+      console.log(isLogged)
+      const { from } = location.state || { from: { pathname: '/' } };   
+      console.log(from)  
+      onLogin ( () => history.replace(from));
+    } catch (error){
+      console.log(error)
+      this.setState({ error });
+    }
   };
+  
   
 
   resetError = () => this.setState({ error: null });

@@ -10,28 +10,17 @@ import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
 
 function App ({ isLogged, authLogin, authLogout }) {
-  /*state = {
-    isLogged: this.props.isInitiallyLogged,
-  };*/
 
   const handleLogin = () => {
     const isLogged= true;
     authLogin( isLogged);
-  
+    
   };
 
- /* const handleLogin = cb => {
-    //despachamos la acción
-    console.log(isLogged)
-    authLogin(isLogged);
-    return cb;
-
-    //this.setState({ isLogged:  true }, cb);
-  }*/
-
- const handleLogout = (isLogged) => {
+ const handleLogout = () => {
+    const isLogged= false;
     authLogout(isLogged)  
-    this.setState({ isLogged: false });
+    
   };
 
  
