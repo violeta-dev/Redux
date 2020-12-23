@@ -14,9 +14,10 @@ function App ({ isLogged, authLogin, authLogout }) {
     isLogged: this.props.isInitiallyLogged,
   };*/
 
-  const handleLogin = cb => {
+  const handleLogin = () => {
+    const isLogged= true;
     authLogin( isLogged);
-    return cb;
+  
   };
 
  /* const handleLogin = cb => {

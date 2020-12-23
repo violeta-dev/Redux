@@ -19,8 +19,17 @@ const { token } = storage.get('auth') || { token: null };
 configureClient(token);
 console.log(token)
 
-//Configuramos el store nada más arrancar la aplicación
-const store = configureStore({auth: token});
+if (token){
+  var isLogged= true
+  console.log(isLogged)
+}
+console.log(isLogged)
+
+const store = configureStore({auth: isLogged});
+
+
+
+
 console.log (store)
 
 console.log(store.getState());

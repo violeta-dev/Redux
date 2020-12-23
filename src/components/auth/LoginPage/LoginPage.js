@@ -12,6 +12,26 @@ class LoginPage extends React.Component {
     error: null,
   };
 
+  /*handleSubmit = credentials => {
+    const { onLogin, location, history } = this.props;
+    console.log(this.props)
+    this.resetError();
+    login(credentials)
+      .then(() => {
+        onLogin(() => {
+          // Navigate to previously required route
+         const { from } = location.state || { from: { pathname: '/' } };
+         
+          console.log(from)
+          history.replace(from);
+        });
+      })
+      .catch(error => {
+        console.log(error)
+        this.setState({ error });
+      });
+  };*/
+  
   handleSubmit = credentials => {
     const { onLogin, location, history } = this.props;
     console.log(this.props)
@@ -31,6 +51,7 @@ class LoginPage extends React.Component {
         this.setState({ error });
       });
   };
+  
 
   resetError = () => this.setState({ error: null });
 

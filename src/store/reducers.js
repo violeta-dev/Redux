@@ -1,7 +1,7 @@
 import * as types from './types';
 
 const initialState = {
-  auth: null,
+  auth: false,
   adverts: null,
 };
 
