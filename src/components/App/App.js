@@ -14,12 +14,14 @@ function App ({ isLogged, authLogin, authLogout }) {
   const handleLogin = () => {
     const isLogged= true;
     authLogin( isLogged);
+    return isLogged
     
   };
 
  const handleLogout = () => {
     const isLogged= false;
     authLogout(isLogged)  
+    return isLogged
     
   };
 

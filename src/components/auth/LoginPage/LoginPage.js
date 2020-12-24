@@ -17,18 +17,15 @@ class LoginPage extends React.Component {
     console.log(this.props)
     this.resetError();
     try {
-      const isLogged = await login(credentials)
-      console.log(isLogged)
-      const { from } = location.state || { from: { pathname: '/' } };   
-      console.log(from)  
-      onLogin ( () => history.replace(from));
+      const isLogged= await login(credentials)
+      const { from } = location.state || { from: { pathname: '/' } };    
+      onLogin(isLogged);
+      history.replace(from);     
     } catch (error){
       console.log(error)
       this.setState({ error });
     }
   };
-  
-  
 
   resetError = () => this.setState({ error: null });
 
