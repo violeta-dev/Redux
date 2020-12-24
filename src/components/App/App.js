@@ -8,6 +8,7 @@ import { AuthContextProvider } from '../../contexts/auth';
 import NotFoundPage from './NotFoundPage';
 import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
+import { getisLogged } from '../../store/selectors';
 
 function App ({ isLogged, authLogin, authLogout }) {
 
@@ -66,6 +67,7 @@ App.propTypes = {
   isInitiallyLogged: T.bool,
   authLogin: T.func,
   authLogout:T.func,
+  isLogged:T.bool,
 
 };
 
@@ -73,7 +75,7 @@ App.propTypes = {
 // Redux connection
 const mapStateToProps = state => {
     return {
-      isLogged: state.auth,
+      isLogged: getisLogged(state)
     };
   };
 
