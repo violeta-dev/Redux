@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react';
+import React, { useEffect }  from 'react';
 import { Link } from 'react-router-dom';
 import { Empty, Button, Spin, List, Divider } from 'antd';
 
@@ -8,32 +8,20 @@ import Layout from '../../layout';
 import FiltersForm, { defaultFilters } from './FiltersForm';
 import AdvertCard from './AdvertCard';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { advertsLoaded } from '../../../store/actions';
-import { getLatestAdverts } from '../../../store/selectors';
 
-
-
-function AdvertsPage (props) {
- /*state = {
+class AdvertsPage extends React.Component {
+ state = {
     adverts: null,
     loading: false,
     error: null,
     filters: storage.get('filters') || defaultFilters,
-  };*/
-
-
-  const [loading,setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [filters,setFilters] = useState(storage.get('filters')|| defaultFilters); 
-  //const [adverts, setAdverts] = useState(null)
+  };
   
 
-  const formatFilters = () => {
-   const {
+  formatFilters = () => {
+    const {
       filters: { name, sale, price, tags },
     } = this.state;
-    
    
     const filters = {};
     if (name) {
@@ -52,74 +40,48 @@ function AdvertsPage (props) {
     return filters;
   };
 
-  const dispatch = useDispatch();
-  const setAdverts = adverts=> dispatch(advertsLoaded(adverts));
-  const adverts = useSelector(getLatestAdverts);
-  console.log(adverts)
-
-
- /*const getAdverts = async() => {
-    setLoading(true);
-    setError(null);
-  
-    try {
-     const result =  await getAdverts(formatFilters())
-     .then(() =>
-       setLoading(false),
-       setAdverts(result),
-     )
-    }catch (error){
-        setLoading(false);
-        setError(error);
-
-     }
-
-}*/
-    
-
 
   
-
   
  
   
 
 
-  /* getAdverts = () => {
+  getAdverts = () => {
     this.setState({ loading: true, error: null });
     getAdverts(this.formatFilters())
       .then(({ result }) =>
         this.setState({ loading: false, adverts: result.rows }),
       )
       .catch(error => this.setState({ loading: false, error }));
-  };*/ 
-
-  const handleSubmit = filters => {
-    storage.set('filters', filters);
-    setFilters({ filters });
   };
 
-  const renderLoading = () => (
+  handleSubmit = filters => {
+    storage.set('filters', filters);
+    this.setState({ filters });
+  };
+
+  renderLoading = () => (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Spin size="large" />
     </div>
   );
 
-  const renderError = () => {
-    //const { error } = this.state;
+  renderError = () => {
+    const { error } = this.state;
     return (
       <Empty
         description={<span style={{ color: '#ff4d4f' }}>{`${error}`}</span>}
       >
-        <Button type="primary" danger onClick={getAdverts}>
+        <Button type="primary" danger onClick={this.getAdverts}>
           Reload
         </Button>
       </Empty>
     );
   };
 
-  const renderEmpty = () => {
-    //const { filters } = this.state;
+  renderEmpty = () => {
+    const { filters } = this.state;
     const isFiltered =
       JSON.stringify(filters) !== JSON.stringify(defaultFilters);
     return (
@@ -135,7 +97,7 @@ function AdvertsPage (props) {
     );
   };
 
-  const renderAdvert = advert => {
+  renderAdvert = advert => {
     return (
       <List.Item>
         <Link to={`/adverts/${advert._id}`}>
@@ -145,15 +107,15 @@ function AdvertsPage (props) {
     );
   };
 
-  const renderAdverts = () => {
-   // const { adverts, loading, error } = this.state;
+  renderAdverts = () => {
+    const { adverts, loading, error } = this.state;
 
     if (loading) {
-      return renderLoading();
+      return this.renderLoading();
     }
 
     if (error) {
-      return renderError();
+      return this.renderError();
     }
 
     if (!adverts) {
@@ -161,59 +123,40 @@ function AdvertsPage (props) {
     }
 
     if (!adverts.length) {
-      return renderEmpty();
+      return this.renderEmpty();
     }
 
     return (
       <List
         grid={{ gutter: 16, column: 3 }}
         dataSource={adverts}
-        renderItem={renderAdvert}
+        renderItem={this.renderAdvert}
       />
     );
   };
 
- /* componentDidMount() {
-    getAdverts();
-  }*/
+  componentDidMount() {
+    this.getAdverts();
+  }
 
-  useEffect(() => {
-    if (!adverts) {
-      getAdverts().then(setAdverts);
-    }
- 
-    return () => {
-      // cancel request
-      console.log('cancel request');
-    };
-  }, []);
-
- /*useEffect(() => {
-    //const { filters } = this.state;
-    if (JSON.stringify(filters)){
-      getAdverts().then(setAdverts)
-    };
- 
-    
-  })*/
-  /*componentDidUpdate(prevProps, { filters: prevFilters }) {
+  componentDidUpdate(prevProps, { filters: prevFilters }) {
     const { filters } = this.state;
     if (JSON.stringify(filters) !== JSON.stringify(prevFilters)) {
-      getAdverts();
+      this.getAdverts();
     }
-  }*/
+  }
 
-  
-    //const { filters } = this.state;
+  render() {
+    const { filters } = this.state;
     return (
       <Layout title="Adverts list">
         <Divider>Filter your adverts</Divider>
-        <FiltersForm initialFilters={filters} onSubmit={handleSubmit} />
+        <FiltersForm initialFilters={filters} onSubmit={this.handleSubmit} />
         <Divider>Adverts</Divider>
-        {renderAdverts()}
+        {this.renderAdverts()}
       </Layout>
     );
   }
-
+}
 
 export default AdvertsPage;

@@ -5,6 +5,7 @@ import { Alert, Col, Row, Typography } from 'antd';
 import { login } from '../../../api/auth';
 import LoginForm from './LoginForm';
 
+
 const { Title } = Typography;
 
 class LoginPage extends React.Component {
@@ -61,3 +62,4 @@ LoginPage.propTypes = {
 };
 
 export default LoginPage;
+

@@ -4,41 +4,21 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { PrivateRoute, LoginPage } from '../auth';
 import { AdvertPage, AdvertsPage, NewAdvertPage } from '../adverts';
-import { AuthContextProvider } from '../../contexts/auth';
+//import { AuthContextProvider } from '../../contexts/auth';
 import NotFoundPage from './NotFoundPage';
+import * as actions from '../../store/actions';
+import { connect } from 'react-redux';
+import { getisLogged } from '../../store/selectors';
 
-
-class App extends React.Component {
-  state = {
-    isLogged: this.props.isInitiallyLogged,
-  };
-
-  handleLogin = cb => {
-    //despachamos la acción
-    //this.setState({ isLogged: true }, cb);
-  };
-
-  handleLogout = () => {
-    this.setState({ isLogged: false });
-  };
-
-  render() {
-    const { isLogged } = this.state;
+function App () {
     return (
-      <AuthContextProvider
-        value={{
-          isLogged,
-          onLogin: this.handleLogin,
-          onLogout: this.handleLogout,
-        }}
-      >
         <Switch>
           <Route path="/" exact>
             <Redirect to="/adverts" />
           </Route>
           <Route path="/login" exact>
             {routerProps => (
-              <LoginPage onLogin={this.handleLogin} {...routerProps} />
+              <LoginPage  {...routerProps} />
             )}
           </Route>
           <PrivateRoute path="/adverts" exact>
@@ -53,13 +33,31 @@ class App extends React.Component {
             <Redirect to="/404" />
           </Route>
         </Switch>
-      </AuthContextProvider>
     );
   }
-}
+
 
 App.propTypes = {
-  isInitiallyLogged: T.bool,
+  authLogin: T.func,
+  isLogged:T.bool,
+
 };
 
-export default App;
+
+// Redux connection
+const mapStateToProps = state => {
+    return {
+      isLogged: getisLogged(state)
+    };
+  };
+
+  const mapDispatchToProps = {
+    authLogin: actions.authLogin,
+  };
+  
+  const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+  export default ConnectedApp;
+    
+  
+
+

@@ -1,10 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
 import T from 'prop-types';
 import { Alert, Divider } from 'antd';
 
 import { createAdvert } from '../../../api/adverts';
+import { advertCreated } from '../../../store/actions';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
+
+
 
 class NewAdvertPage extends React.Component {
   state = {
