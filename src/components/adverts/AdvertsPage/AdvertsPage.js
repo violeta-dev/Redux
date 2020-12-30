@@ -55,7 +55,7 @@ function AdvertsPage (props) {
   const dispatch = useDispatch();
   const setAdverts = adverts=> dispatch(advertsLoaded(adverts));
   const adverts = useSelector(getLatestAdverts);
-  console.log(adverts)
+
 
 
  /*const getAdverts = async() => {
@@ -136,6 +136,7 @@ function AdvertsPage (props) {
   };
 
   const renderAdvert = advert => {
+    console.log(advert)  
     return (
       <List.Item>
         <Link to={`/adverts/${advert._id}`}>
@@ -147,6 +148,7 @@ function AdvertsPage (props) {
 
   const renderAdverts = () => {
    // const { adverts, loading, error } = this.state;
+   console.log(adverts)
 
     if (loading) {
       return renderLoading();
@@ -163,7 +165,7 @@ function AdvertsPage (props) {
     if (!adverts.length) {
       return renderEmpty();
     }
-
+    
     return (
       <List
         grid={{ gutter: 16, column: 3 }}
