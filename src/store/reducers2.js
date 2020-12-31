@@ -2,7 +2,7 @@ import * as types from './types';
 
 export const initialState = {
   auth: null,
-  adverts: null,
+  adverts:null,
 }
 console.log(initialState)
 

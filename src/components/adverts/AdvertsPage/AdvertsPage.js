@@ -26,7 +26,7 @@ function AdvertsPage (props) {
   const [loading,setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [filters,setFilters] = useState(storage.get('filters')|| defaultFilters); 
-  //const [adverts, setAdverts] = useState(null)
+
   
 
   const formatFilters = () => {
@@ -148,7 +148,8 @@ function AdvertsPage (props) {
 
   const renderAdverts = () => {
    // const { adverts, loading, error } = this.state;
-   console.log(adverts)
+    console.log(adverts)
+    
 
     if (loading) {
       return renderLoading();
@@ -159,17 +160,17 @@ function AdvertsPage (props) {
     }
 
     if (!adverts) {
-      return null;
+      return renderEmpty;
     }
 
-    if (!adverts.length) {
+    /*if (!adverts.length) {
       return renderEmpty();
-    }
+    }*/
     
     return (
       <List
         grid={{ gutter: 16, column: 3 }}
-        dataSource={adverts}
+        dataSource={adverts.result.rows}
         renderItem={renderAdvert}
       />
     );
@@ -192,12 +193,10 @@ function AdvertsPage (props) {
 
  /*useEffect(() => {
     //const { filters } = this.state;
-    if (JSON.stringify(filters)){
-      getAdverts().then(setAdverts)
-    };
- 
-    
-  })*/
+    if (JSON.stringify(filters)) {
+      getAdverts().then(setAdverts);
+    }
+  });*/
   /*componentDidUpdate(prevProps, { filters: prevFilters }) {
     const { filters } = this.state;
     if (JSON.stringify(filters) !== JSON.stringify(prevFilters)) {

@@ -4,17 +4,25 @@ import { LogoutOutlined } from '@ant-design/icons';
 
 import { logout } from '../../api/auth';
 import ConfirmationButton from '../shared/ConfirmationButton';
-import { AuthContextConsumer } from '../../contexts/auth';
+import * as actions from '../../store/actions';
+import { connect } from 'react-redux';
+import { getisLogged } from '../../store/selectors';
+import { useSelector, useDispatch } from 'react-redux';
 
-class LogoutButton extends React.Component {
-  handleLogout = () => {
-    const { onLogout } = this.props;
-    logout().then(onLogout);
+function LogoutButton({ authLogout, history })  {
+
+  const handleLogout = () => {
+    console.log(this.props)
+    const isLogged= false;
+    authLogout(isLogged);
+    
+    return isLogged
   };
 
-  render() {
-    const { onLogout, ...props } = this.props;
+ 
+   // const { onLogout, ...props } = this.props;
     return (
+      
       <ConfirmationButton
         danger
         icon={<LogoutOutlined />}
@@ -29,21 +37,41 @@ class LogoutButton extends React.Component {
             danger: true,
           },
         }}
-        onConfirm={this.handleLogout}
-        {...props}
+        onConfirm={handleLogout}
+        
       />
+      
     );
   }
-}
 
-/*LogoutButton.propTypes = {
+
+LogoutButton.propTypes = {
   onLogout: T.func.isRequired,
-};*/
+  authLogout:T.func,
+  isLogged:T.bool,
+};
 
-const ConnectedToAuthLogoutButton = props => (
-  <AuthContextConsumer>
-    {({ onLogout }) => <LogoutButton onLogout={onLogout} {...props} />}
-  </AuthContextConsumer>
-);
+// Redux connection
+const mapStateToProps = state => {
+    return {
+      isLogged: getisLogged(state)
+    };
+  };
+  const mapDispatchToProps = {
+    authLogout: actions.authLogout,
+  };
 
-export default ConnectedToAuthLogoutButton;
+export const ConnectedLogoutButton = connect(mapStateToProps, mapDispatchToProps)(LogoutButton)
+
+
+
+const ConnectedToAuthLogoutButton = props => 
+  ({ onLogout }) => <LogoutButton onLogout={onLogout} {...props} />
+
+export default ConnectedToAuthLogoutButton
+
+
+  
+                   
+
+

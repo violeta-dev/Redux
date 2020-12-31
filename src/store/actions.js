@@ -38,11 +38,11 @@ export const advertsLoaded = adverts => {
     };
   };
   
-  export const advertCreated = advert => {
+  export const advertCreated = (advert) => {
     return {
       type: ADVERTS_CREATED,
       payload: {
-        advert,
+        advert
       },
     };
   };
@@ -58,11 +58,11 @@ export const advertsTags = tags => {
   };
 };
 
-export const advertDeleted = advert => {
+export const advertDeleted = advertId => {
   return {
     type: ADVERT_DELETED,
     payload: {
-      advert,
+      advertId,
     },
   };
 };

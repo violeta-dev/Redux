@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { PrivateRoute, LoginPage } from '../auth';
 import { AdvertPage, AdvertsPage, NewAdvertPage } from '../adverts';
+import { AuthContextProvider } from '../../contexts/auth';
 import NotFoundPage from './NotFoundPage';
 import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
@@ -19,6 +20,12 @@ function App ({ isLogged, authLogin }) {
   };
 
     return (
+      <AuthContextProvider
+        value={{
+          isLogged,
+          onLogin: handleLogin,
+        }}
+      >
         <Switch>
           <Route path="/" exact>
             <Redirect to="/adverts" />
@@ -40,7 +47,7 @@ function App ({ isLogged, authLogin }) {
             <Redirect to="/404" />
           </Route>
         </Switch>
-     
+      </AuthContextProvider>
     );
   }
 
@@ -57,14 +64,14 @@ const mapStateToProps = state => {
     return {
       isLogged: getisLogged(state)
     };
-};
+  };
 
-const mapDispatchToProps = {
+  const mapDispatchToProps = {
     authLogin: actions.authLogin,
-};
+  };
   
-const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
-export default ConnectedApp;
+  const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+  export default ConnectedApp;
     
   
 
