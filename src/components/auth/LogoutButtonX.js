@@ -1,5 +1,5 @@
 import React from 'react';
-import T from 'prop-types';
+//import T from 'prop-types';
 import { LogoutOutlined } from '@ant-design/icons';
 
 import { logout } from '../../api/auth';

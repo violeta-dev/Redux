@@ -17,16 +17,6 @@ class NewAdvertPage extends React.Component {
     error: null,
   };
 
-  /*handleSubmit = advert => {
-    const { history } = this.props;
-    const {onAdvertCreated} = this.props
-    this.resetError();
-    onAdvertCreated({...createAdvert})
-    createAdvert(advert)
-      .then(({ result: advert }) => history.push(`/adverts/${advert._id}`))
-      .catch(error => this.setState({ error }));
-  };*/
-
   handleSubmit = async advert => {
     const { history } = this.props;
     const {onAdvertCreated} = this.props
@@ -34,7 +24,7 @@ class NewAdvertPage extends React.Component {
     this.resetError();
     try {
         const createdAdvert = await createAdvert(advert)
-        .then(({ result: advert }) => history.push(`/adverts`))
+        .then(({ result: advert }) => history.push(`/adverts/${advert._id}`))
         console.log(createdAdvert.result)
         onAdvertCreated({...createdAdvert})
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import T from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { Divider, Image, Typography, Statistic, Row, Col } from 'antd';
@@ -10,29 +10,41 @@ import { DeleteOutlined } from '@ant-design/icons';
 import placeholder from '../../../assets/photo-placeholder.png';
 import Tags from '../Tags';
 import { formatter } from '../../../utils/numbers';
+import { useSelector, useDispatch } from 'react-redux';
 import { advertLoaded, advertDeleted } from '../../../store/actions';
+import { getLatestAdvert } from '../../../store/selectors';
 
 const { Title } = Typography;
 
-class AdvertPage extends React.Component {
-  state = {
+function AdvertPage (props){
+ /* state = {
     advert: null,
     error: null,
-  };
- 
-  getAdvertId = () => this.props.match.params.id;
+  };*/
 
-  handleDeleteClick = () => {
+  //const [advert,setAdvert] = useState(null);
+  const [error, setError] = useState(null);
+
+  const advert = useSelector(getLatestAdvert);
+  const getAdvertId = () => props.match.params.id;
+   console.log(getAdvertId())                         
+ //getAdvertId = () => this.props.match.params.id;
+  const dispatch = useDispatch();
+  const advertId = getLatestAdvert()
+  const setAdvert = (advert) => dispatch(advertLoaded(advert))
+  
+  const handleDeleteClick = (advertId) =>
+    dispatch(advertDeleted(advertId))
+
+
+ /*handleDeleteClick = () => {
     const { history } = this.props;
-    console.log(this.props)
     deleteAdvert(this.getAdvertId()).then(() => history.push('/'));
-  };
+  };*/
 
-  getAdvert = async () => {
+  /*getAdvert = async () => {    
     try {
       const { result } = await getAdvert(this.getAdvertId());
-      
-      console.log(result)
       if (!result) {
         const error = { message: 'Not found' };
         throw error;
@@ -41,11 +53,11 @@ class AdvertPage extends React.Component {
     } catch (error) {
       this.setState({ error });
     }
-  };
+  };*/
 
-  renderAdvert = () => {
-    const { advert, error } = this.state;
-
+ const renderAdvert = () => {
+    //const { advert, error } = this.state;
+    console.log(advert)
     if (error) {
       return <Redirect to="/404" />;
     }
@@ -91,7 +103,7 @@ class AdvertPage extends React.Component {
               danger: true,
             },
           }}
-          onConfirm={this.handleDeleteClick}
+          onConfirm={handleDeleteClick}
           style={{ marginTop: 20 }}
           block
         >
@@ -101,19 +113,30 @@ class AdvertPage extends React.Component {
     );
   };
 
-  componentDidMount() {
-    this.getAdvert();
-  }
+  useEffect(() => {
+    if (!advert) {
+      getAdvert().then(setAdvert);
+      console.log(advert)
+    }
+ 
+    return () => {
+      // cancel request
+      console.log('cancel request');
+    };
+  }, []);
+  /*componentDidMount() {
+    getAdvert();
+  }*/
 
-  render() {
+  
     return (
       <Layout title="Advert detail">
         <Divider>Detail of your advert</Divider>
-        {this.renderAdvert()}
+        {renderAdvert()}
       </Layout>
     );
   }
-}
+
 
 AdvertPage.propTypes = {
   match: T.shape({ params: T.shape({ id: T.string.isRequired }).isRequired })

@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import { Select } from 'antd';
 
 import { getTags } from '../../api/adverts';
+import { useSelector, useDispatch } from 'react-redux';
+import { advertsTags } from '../../store/actions';
+import { getLatestTags } from '../../store/selectors';
 
 const { Option } = Select;
 
-class TagsSelect extends React.Component {
-  state = {
+function TagsSelect (props) {
+  /*state = {
     tags: null,
-  };
-
-  componentDidMount() {
+  };*/
+ 
+  const dispatch = useDispatch();
+  const setTags = tags=> dispatch(advertsTags(tags));
+  const tags = useSelector(getLatestTags);
+ /*componentDidMount() {
     getTags().then(({ result: tags }) => this.setState({ tags }));
-  }
+  }*/
+  useEffect(() => {
+    
+      getTags().then(setTags);
 
-  render() {
-    const { tags } = this.state;
+  }, []);
+
+  
+    //const { tags } = this.state;
     return (
       <Select
         allowClear
@@ -23,12 +34,12 @@ class TagsSelect extends React.Component {
         mode="multiple"
         placeholder="Select tags"
         style={{ width: '100%' }}
-        {...this.props}
+        {...props}
       >
         {tags && tags.map(tag => <Option key={tag}>{tag}</Option>)}
       </Select>
     );
-  }
+  
 }
 
 export default TagsSelect;

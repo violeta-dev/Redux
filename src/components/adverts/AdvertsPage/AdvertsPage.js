@@ -136,7 +136,7 @@ function AdvertsPage (props) {
   };
 
   const renderAdvert = advert => {
-    console.log(advert)  
+     
     return (
       <List.Item>
         <Link to={`/adverts/${advert._id}`}>
@@ -148,7 +148,6 @@ function AdvertsPage (props) {
 
   const renderAdverts = () => {
    // const { adverts, loading, error } = this.state;
-    console.log(adverts)
     
 
     if (loading) {

@@ -2,12 +2,12 @@ import React from 'react';
 import T from 'prop-types';
 import { LogoutOutlined } from '@ant-design/icons';
 
-import { logout } from '../../api/auth';
+//import { logout } from '../../api/auth';
 import ConfirmationButton from '../shared/ConfirmationButton';
 import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
 import { getisLogged } from '../../store/selectors';
-import { useSelector, useDispatch } from 'react-redux';
+
 
 function LogoutButton({ authLogout, history })  {
 
@@ -20,7 +20,7 @@ function LogoutButton({ authLogout, history })  {
   };
 
  
-   // const { onLogout, ...props } = this.props;
+   //const { onLogout, ...props } = this.props;
     return (
       
       <ConfirmationButton

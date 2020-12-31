@@ -3,6 +3,7 @@ import * as types from './types';
 export const initialState = {
   auth: null,
   adverts:null,
+
 }
 console.log(initialState)
 
@@ -18,6 +19,7 @@ const reducer = (state = initialState, action) => {
       return { ...state, auth: null };
     case types.ADVERTS_LOADED:
         return { ...state, adverts: action.payload.adverts };
+                   
     case types.ADVERTS_CREATED:
         if (!state.adverts) {
           return { ...state, adverts: [action.payload.advert] };

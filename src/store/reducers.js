@@ -3,6 +3,8 @@ import * as types from './types';
 const initialState = {
   auth: false,
   adverts: null,
+  tags: null,
+  advert:null,
 };
 
 
@@ -27,9 +29,10 @@ export const adverts = (state = initialState.adverts, action) => {
       return action.payload.advert;
     case types.ADVERT_DELETED:
       return action.payload.advertId;
+    case types.ADVERTS_TAGS:
+      return action.payload.tags;  
     case types.ADVERTS_CREATED:
       if (!state) {
-         console.log(state) 
         return [action.payload.advert];
       }
       return [...state, action.payload.advert];
