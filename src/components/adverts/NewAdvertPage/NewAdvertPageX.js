@@ -1,11 +1,12 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+//import { Redirect } from 'react-router-dom';
 
 import T from 'prop-types';
 import { Alert, Divider } from 'antd';
 
 import { createAdvert } from '../../../api/adverts';
-
+import { advertCreated } from '../../../store/actions';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
 
@@ -16,15 +17,29 @@ class NewAdvertPage extends React.Component {
     error: null,
   };
 
-  handleSubmit = advert => {
+  handleSubmit = async advert => {
     const { history } = this.props;
+    const {onAdvertCreated} = this.props
     this.resetError();
-    createAdvert(advert)
-      .then(({ result: advert }) => history.push(`/adverts/${advert._id}`))
-      .catch(error => this.setState({ error }));
-  };
+    try {
+        const createdAdvert = await createAdvert(advert)
+        .then(({ result: {rows:advert} }) => history.push(`/adverts/${advert._id}`))
+        onAdvertCreated({...createdAdvert, _id: createdAdvert._id,})
+       
+        
+       
 
+    }catch (error){
+        this.setState({ error });
+
+    }  
+  } 
   resetError = () => this.setState({ error: null });
+
+  componentDidMount() {
+    
+  }
+
 
   render() {
     const { error } = this.state;
@@ -50,4 +65,5 @@ NewAdvertPage.propTypes = {
   history: T.shape({ push: T.func.isRequired }).isRequired,
 };
 
-export default NewAdvertPage;
+//export default NewAdvertPage;
+export default connect(null, { onAdvertCreated: advertCreated })(NewAdvertPage);

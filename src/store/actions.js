@@ -9,6 +9,12 @@ import {
     ADVERT_LOADED,
   } from './types';
   
+import * as advertsApi from '../api/adverts';
+
+export const loadAdverts = () => async (dispatch, getState) => {
+  const adverts = await advertsApi.getAdverts();
+  dispatch(advertsLoaded(adverts));
+};
 
 export const authLogin = (isLogged) => {
   return {
@@ -42,7 +48,7 @@ export const advertsLoaded = adverts => {
     return {
       type: ADVERTS_CREATED,
       payload: {
-        advert
+        advert,
       },
     };
   };

@@ -21,6 +21,7 @@ const PrivateRoute = ({ isLogged, ...props }) => {
   return isLogged ? <Route {...props} /> : <Redirect to="/login" />;
 };
 
+
 export default connect(state => ({ isLogged: getisLogged(state) }))(
   PrivateRoute
 );

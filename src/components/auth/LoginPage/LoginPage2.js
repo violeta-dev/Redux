@@ -1,12 +1,10 @@
 import React from 'react';
 import T from 'prop-types';
 import { Alert, Col, Row, Typography } from 'antd';
-//import { connect } from 'react-redux';
 
 
 import { login } from '../../../api/auth';
 import LoginForm from './LoginForm';
-
 
 
 const { Title } = Typography;
@@ -18,6 +16,7 @@ class LoginPage extends React.Component {
 
   handleSubmit = async (credentials) => {
     const { onLogin,location, history } = this.props;
+    console.log(this.props)
     this.resetError();
     try {
       const isLogged= await login(credentials)
@@ -25,6 +24,7 @@ class LoginPage extends React.Component {
       onLogin(isLogged);
       history.replace(from);     
     } catch (error){
+      console.log(error)
       this.setState({ error });
     }
   };
@@ -56,7 +56,6 @@ class LoginPage extends React.Component {
 
 LoginPage.propTypes = {
   onLogin: T.func.isRequired,
-  isLogged: T.bool,
   history: T.shape({ replace: T.func.isRequired }).isRequired,
   location: T.shape({
     state: T.shape({ from: T.shape({ pathname: T.string }) }),
@@ -64,6 +63,4 @@ LoginPage.propTypes = {
 };
 
 export default LoginPage;
-
-
 

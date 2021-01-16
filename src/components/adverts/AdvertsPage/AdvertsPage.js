@@ -14,7 +14,7 @@ import { getLatestAdverts } from '../../../store/selectors';
 
 
 
-function AdvertsPage (props) {
+function AdvertsPage () {
  /*state = {
     adverts: null,
     loading: false,
@@ -23,8 +23,8 @@ function AdvertsPage (props) {
   };*/
 
 
-  const [loading,setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [loading] = useState(false);
+  const [error] = useState(null);
   const [filters,setFilters] = useState(storage.get('filters')|| defaultFilters); 
 
   
@@ -55,6 +55,7 @@ function AdvertsPage (props) {
   const dispatch = useDispatch();
   const setAdverts = adverts=> dispatch(advertsLoaded(adverts));
   const adverts = useSelector(getLatestAdverts);
+  console.log(adverts)
 
 
 
@@ -149,7 +150,7 @@ function AdvertsPage (props) {
   const renderAdverts = () => {
    // const { adverts, loading, error } = this.state;
     
-
+    console.log(adverts)
     if (loading) {
       return renderLoading();
     }
@@ -175,14 +176,16 @@ function AdvertsPage (props) {
     );
   };
 
- /* componentDidMount() {
-    getAdverts();
-  }*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!adverts) {
       getAdverts().then(setAdverts);
-    }
+    }*/
+  
+  useEffect(() => {
+    
+    getAdverts().then(setAdverts);
+    
  
     return () => {
       // cancel request
@@ -190,21 +193,14 @@ function AdvertsPage (props) {
     };
   }, []);
 
- /*useEffect(() => {
-    //const { filters } = this.state;
-    if (JSON.stringify(filters)) {
+  useEffect(() => {
+  
+    if (JSON.stringify(filters) !== JSON.stringify(defaultFilters)) {
       getAdverts().then(setAdverts);
     }
-  });*/
-  /*componentDidUpdate(prevProps, { filters: prevFilters }) {
-    const { filters } = this.state;
-    if (JSON.stringify(filters) !== JSON.stringify(prevFilters)) {
-      getAdverts();
-    }
-  }*/
+  }, [filters])
+ 
 
-  
-    //const { filters } = this.state;
     return (
       <Layout title="Adverts list">
         <Divider>Filter your adverts</Divider>

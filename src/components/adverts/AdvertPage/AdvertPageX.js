@@ -129,7 +129,7 @@ AdvertPage.propTypes = {
 const mapDispatchToProps = {
   onAdvertLoaded: advertLoaded,
   onAdvertDeleted: advertDeleted,
-
+  
 };
 
 //export default AdvertPage;

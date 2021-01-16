@@ -4,7 +4,11 @@ const initialState = {
   auth: false,
   adverts: null,
   tags: null,
-  advert:null,
+  ui: {
+    loading: false,
+    error: null,
+  },
+
 };
 
 
@@ -21,6 +25,7 @@ export const auth = (state = initialState.auth, action) => {
   }
 };
 
+
 export const adverts = (state = initialState.adverts, action) => {
   switch (action.type) {
     case types.ADVERTS_LOADED:
@@ -29,8 +34,6 @@ export const adverts = (state = initialState.adverts, action) => {
       return action.payload.advert;
     case types.ADVERT_DELETED:
       return action.payload.advertId;
-    case types.ADVERTS_TAGS:
-      return action.payload.tags;  
     case types.ADVERTS_CREATED:
       if (!state) {
         return [action.payload.advert];
@@ -41,5 +44,16 @@ export const adverts = (state = initialState.adverts, action) => {
       return state;
   }
 };
+
+export const tags = (state = initialState.tags, action) => {
+  switch (action.type) {
+    case types.ADVERTS_TAGS:
+      return action.payload.tags;  
+
+    default:
+      return state;
+  }
+};
+
 
 

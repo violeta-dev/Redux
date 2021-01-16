@@ -9,16 +9,12 @@ import { getLatestTags } from '../../store/selectors';
 const { Option } = Select;
 
 function TagsSelect (props) {
-  /*state = {
-    tags: null,
-  };*/
+ 
  
   const dispatch = useDispatch();
   const setTags = tags=> dispatch(advertsTags(tags));
   const tags = useSelector(getLatestTags);
- /*componentDidMount() {
-    getTags().then(({ result: tags }) => this.setState({ tags }));
-  }*/
+ 
   useEffect(() => {
     
       getTags().then(setTags);
@@ -36,7 +32,7 @@ function TagsSelect (props) {
         style={{ width: '100%' }}
         {...props}
       >
-        {tags && tags.map(tag => <Option key={tag}>{tag}</Option>)}
+        {tags && tags.result.map(tag => <Option key={tag}>{tag}</Option>)}
       </Select>
     );
   

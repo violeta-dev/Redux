@@ -9,7 +9,7 @@ import * as actions from '../../store/actions';
 import { connect } from 'react-redux';
 import { getisLogged } from '../../store/selectors';
 
-function App ({ authLogin }) {
+function App ({ isLogged, authLogin }) {
 
   const handleLogin = () => {
     const isLogged= true;
@@ -67,4 +67,5 @@ const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 export default ConnectedApp;
     
   
+
 

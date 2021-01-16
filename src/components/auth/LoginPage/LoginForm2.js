@@ -32,7 +32,7 @@ const LoginForm = ({ email, password, remember, handleChange, handleSubmit,canSu
       >
         Remember me
       </Checkbox>
-      <Button type="primary" htmlType="submit" disabled={!canSubmit} block>
+      <Button type="primary" htmlType="submit" disabled={!canSubmit()} block>
         Log In
       </Button>
     </form>

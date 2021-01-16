@@ -1,13 +1,30 @@
 import React from 'react';
-import styles from './LoginForm.module.css';
+import T from 'prop-types';
 import { Button, Checkbox, Input } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
-import LoginHOC from './LoginHOC';
+import useForm from '../../../hooks/useForm';
+import styles from './LoginForm.module.css';
 
-const LoginForm = ({ email, password, remember, handleChange, handleSubmit,canSubmit }) => (
+function LoginForm({ onSubmit }) {
+  const [form, handleChange] = useForm({
+    email: '',
+    password: '',
+    remember: false,
+  });
+  const { email, password, remember } = form;
 
-  <form onSubmit={handleSubmit}>
+  const canSubmit = () => {
+    return !!(email && password);
+  };
+
+  const handleSubmit = ev => {
+    ev.preventDefault();
+    onSubmit(form);               
+  };
+
+  return (   
+    <form onSubmit={handleSubmit}>
       <Input
         name="email"
         className={styles.input}
@@ -32,10 +49,15 @@ const LoginForm = ({ email, password, remember, handleChange, handleSubmit,canSu
       >
         Remember me
       </Checkbox>
-      <Button type="primary" htmlType="submit" disabled={!canSubmit} block>
+      <Button type="primary" htmlType="submit" disabled={!canSubmit()} block>
         Log In
       </Button>
     </form>
-);
+  );
+}
 
-export default (LoginHOC(LoginForm));
+LoginForm.propTypes = {
+  onSubmit: T.func.isRequired,
+};
+
+export default LoginForm;

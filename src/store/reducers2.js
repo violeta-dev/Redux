@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
       return { ...state, auth: action.payload.isLogged };
     case types.AUTH_LOGOUT:
       // logout
-      return { ...state, auth: null };
+      return { ...state, auth: action.payload.isLogged };
     case types.ADVERTS_LOADED:
         return { ...state, adverts: action.payload.adverts };
                    
