@@ -1,3 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoginPage snapshot 1`] = `ShallowWrapper {}`;
+exports[`LoginPage snapshot 1`] = `
+<Row>
+  <Col
+    offset={8}
+    span={8}
+    style={
+      Object {
+        "marginTop": 64,
+      }
+    }
+  >
+    <Title
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      Log In
+    </Title>
+    <LoginForm
+      onSubmit={[Function]}
+    />
+  </Col>
+</Row>
+`;

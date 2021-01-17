@@ -37,5 +37,8 @@ export const LoginForm = ({ email, password, remember, handleChange, handleSubmi
       </Button>
     </form>
 );
+const ConnectedLoginForm = LoginHOC(LoginForm);
+ConnectedLoginForm.displayName = 'LoginForm';
+export default ConnectedLoginForm;
 
-export default (LoginHOC(LoginForm));
+//export default (LoginHOC(LoginForm));
