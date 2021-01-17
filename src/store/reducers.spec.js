@@ -1,27 +1,23 @@
-import { ADVERTS_TAGS } from './types';
-import { tags } from './reducers';
+import { AUTH_LOGIN} from './types';
+import { auth } from './reducers';
+//test reducer
+describe('auth', () => {
+    test('should handle a AUTH_LOGIN action', () => {
+        const state = {isLogged:false}
 
-describe('tags', () => {
-    test('should handle a ADVERTS_TAGS action', () => {
-        const state = []
             
         const action = {
-            type: ADVERTS_TAGS,
-            payload: ["work","lifestyle","mobile", "motor"]
+            type: AUTH_LOGIN,
+            payload: {
+                isLogged: true,
+              },
               
           };
-          const expectedState = [
-            { id: '1', likes: ['like'] },
-            { id: '2', likes: [] },
-          ];
-          expect(tags(state, action)).toEqual(expectedState);
+          const expectedState = true
+            
+          
+          expect(auth(state, action)).toEqual(expectedState);
         });
-        test('should handle ANY action', () => {
-            const state = [];
-            const action = {
-              type: 'ANY',
-            };
-            expect(tags(state, action)).toEqual(state);
-          });
+        
         });
         

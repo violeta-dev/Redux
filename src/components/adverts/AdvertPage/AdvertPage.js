@@ -26,13 +26,12 @@ class AdvertPage extends React.Component {
   handleDeleteClick = () => {
     const { history } = this.props;
     const {onAdvertDeleted} = this.props;
-    //deleteAdvert(this.getAdvertId()).then(() => history.push('/'));
-    //deleteAdvert(this.getAdvertId());
-    onAdvertDeleted(this.getAdvertId());
+    deleteAdvert(this.getAdvertId());
+    onAdvertDeleted({result:this.getAdvertId()});
     history.push('/');
     
   };
-
+  
   getAdvert = async () => {
     try {
       const {onAdvertLoaded} = this.props;

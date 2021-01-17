@@ -1,8 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
 import { Button, Radio, Input, InputNumber, Row, Col } from 'antd';
-import { advertCreated } from '../../../store/actions';
-import { connect } from 'react-redux';
+
 import TagsSelect from '../TagsSelect';
 import { FormField, InputImage } from '../../shared';
 import * as numbers from '../../../utils/numbers';
@@ -116,4 +115,4 @@ NewAdvertForm.propTypes = {
   onSubmit: T.func.isRequired,
 };
 
-export default connect(null, {  advertCreated })(NewAdvertForm);
+export default NewAdvertForm;

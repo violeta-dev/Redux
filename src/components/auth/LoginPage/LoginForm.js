@@ -5,7 +5,7 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import LoginHOC from './LoginHOC';
 
-const LoginForm = ({ email, password, remember, handleChange, handleSubmit,canSubmit }) => (
+export const LoginForm = ({ email, password, remember, handleChange, handleSubmit,canSubmit }) => (
 
   <form onSubmit={handleSubmit}>
       <Input

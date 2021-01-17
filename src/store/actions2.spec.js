@@ -2,7 +2,7 @@ import configureStore from 'redux-mock-store';
 
 import { AUTH_LOGIN } from './types';
 
-
+//test Mock Store
 
 const middlewares = []
 const mockStore = configureStore(middlewares)

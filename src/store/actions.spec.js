@@ -4,7 +4,7 @@ import * as advertsApi from '../api/adverts';
 
 jest.mock('../api/adverts');
 
-
+//tests síncronos
 describe('authLogin', () => {
     test('should create an AUTH_LOGIN action with isLogged', () => {
       const isLogged = true;
@@ -34,6 +34,8 @@ describe('authLogin', () => {
       expect(action).toEqual(expectedAction);
     });
   });
+
+  //test asíncronos
 
   describe('loadAdverts', () => {
     test('should dispatch a ADVERTS_LOADED action', async () => {

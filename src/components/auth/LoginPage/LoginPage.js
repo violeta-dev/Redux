@@ -11,7 +11,7 @@ import LoginForm from './LoginForm';
 
 const { Title } = Typography;
 
-class LoginPage extends React.Component {
+export class LoginPage extends React.Component {
   state = {
     error: null,
   };
@@ -54,14 +54,14 @@ class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
+/*LoginPage.propTypes = {
   onLogin: T.func.isRequired,
   isLogged: T.bool,
   history: T.shape({ replace: T.func.isRequired }).isRequired,
   location: T.shape({
     state: T.shape({ from: T.shape({ pathname: T.string }) }),
   }).isRequired,
-};
+};*/
 
 export default LoginPage;
 

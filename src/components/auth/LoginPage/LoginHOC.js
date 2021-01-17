@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 
 
 
 
-const LoginHOC = (PassedComponent) => {
+const LoginHOC = (CalledComponent) => {
   class LoginParent extends Component {
     
 
@@ -53,7 +52,7 @@ const LoginHOC = (PassedComponent) => {
     render() {
       const { email, password, remember } = this.state;
       return (
-        <PassedComponent
+        <CalledComponent
           email={email}
           password={password}
           remember= {remember}
