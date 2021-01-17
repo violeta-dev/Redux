@@ -21,8 +21,6 @@ function TagsSelect (props) {
 
   }, []);
 
-  
-    //const { tags } = this.state;
     return (
       <Select
         allowClear

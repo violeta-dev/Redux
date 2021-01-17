@@ -15,14 +15,6 @@ import { getLatestAdverts } from '../../../store/selectors';
 
 
 function AdvertsPage () {
- /*state = {
-    adverts: null,
-    loading: false,
-    error: null,
-    filters: storage.get('filters') || defaultFilters,
-  };*/
-
-
   const [loading] = useState(false);
   const [error] = useState(null);
   const [filters,setFilters] = useState(storage.get('filters')|| defaultFilters); 
@@ -57,44 +49,6 @@ function AdvertsPage () {
   const adverts = useSelector(getLatestAdverts);
   console.log(adverts)
 
-
-
- /*const getAdverts = async() => {
-    setLoading(true);
-    setError(null);
-  
-    try {
-     const result =  await getAdverts(formatFilters())
-     .then(() =>
-       setLoading(false),
-       setAdverts(result),
-     )
-    }catch (error){
-        setLoading(false);
-        setError(error);
-
-     }
-
-}*/
-    
-
-
-  
-
-  
- 
-  
-
-
-  /* getAdverts = () => {
-    this.setState({ loading: true, error: null });
-    getAdverts(this.formatFilters())
-      .then(({ result }) =>
-        this.setState({ loading: false, adverts: result.rows }),
-      )
-      .catch(error => this.setState({ loading: false, error }));
-  };*/ 
-
   const handleSubmit = filters => {
     storage.set('filters', filters);
     setFilters({ filters });
@@ -107,7 +61,7 @@ function AdvertsPage () {
   );
 
   const renderError = () => {
-    //const { error } = this.state;
+   
     return (
       <Empty
         description={<span style={{ color: '#ff4d4f' }}>{`${error}`}</span>}
@@ -120,7 +74,7 @@ function AdvertsPage () {
   };
 
   const renderEmpty = () => {
-    //const { filters } = this.state;
+    
     const isFiltered =
       JSON.stringify(filters) !== JSON.stringify(defaultFilters);
     return (
@@ -148,7 +102,7 @@ function AdvertsPage () {
   };
 
   const renderAdverts = () => {
-   // const { adverts, loading, error } = this.state;
+   
     
     console.log(adverts)
     if (loading) {
@@ -163,9 +117,7 @@ function AdvertsPage () {
       return renderEmpty;
     }
 
-    /*if (!adverts.length) {
-      return renderEmpty();
-    }*/
+   
     
     return (
       <List
@@ -177,10 +129,7 @@ function AdvertsPage () {
   };
 
 
-  /*useEffect(() => {
-    if (!adverts) {
-      getAdverts().then(setAdverts);
-    }*/
+  
   
   useEffect(() => {
     

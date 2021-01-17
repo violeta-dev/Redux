@@ -31,17 +31,7 @@ ReactDOM.render(
   </Root>,
   document.getElementById('root')
 );
-/*
-const render = () => {
-  ReactDOM.render(
-    <Root store={store} history= {history}>
-      <App />
-    </Root>,
-    document.getElementById('root')
-  );
-};
 
-render();*/
 
 
 

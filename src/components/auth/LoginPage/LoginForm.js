@@ -41,4 +41,3 @@ const ConnectedLoginForm = LoginHOC(LoginForm);
 ConnectedLoginForm.displayName = 'LoginForm';
 export default ConnectedLoginForm;
 
-//export default (LoginHOC(LoginForm));

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-//import { Redirect } from 'react-router-dom';
+
 
 import T from 'prop-types';
 import { Alert, Divider } from 'antd';
@@ -16,7 +16,7 @@ class NewAdvertPage extends React.Component {
   state = {
     error: null,
   };
-//history.push(`/adverts/${advert._id}`))
+
   handleSubmit = async advert => {
     const { history } = this.props;
     const {onAdvertCreated} = this.props

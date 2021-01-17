@@ -11,4 +11,4 @@ const Root = ({ children, store , history}) => (
 
   );
   
-  export default Root;
+export default Root;
